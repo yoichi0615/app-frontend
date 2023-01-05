@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Day = (props: any) => {
+export const Day = (props) => {
   const { day, rowIdx } = props;
   return (
     <div className="border border-gray-200 flex flex-col">
