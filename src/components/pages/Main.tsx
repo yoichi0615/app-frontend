@@ -7,8 +7,8 @@ export const Main:React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
   return (
     <>
-      <h3>家計簿メインページ</h3>
-      <Month month={currentMonth} />
+      <h3>メインページ</h3>
+      <Month month={currentMonth}/>
     </>
   )
 }

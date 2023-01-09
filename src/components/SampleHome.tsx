@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-export const SampleHome:React.FC =() => {
+export const SampleHome: React.FC = () => {
   return (
     <>
       <h1>Sample Home</h1>
@@ -11,5 +11,5 @@ export const SampleHome:React.FC =() => {
         </ul>
       </nav>  
     </>
-  );
+  )
 }
