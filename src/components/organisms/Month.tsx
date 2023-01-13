@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CalendarCell } from '../atoms/CalendarCell'
 import Modal from 'react-modal'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setData } from '../../store/modules/expenseSlice'
 
@@ -17,33 +17,34 @@ const customStyles = {
   }
 }
 
+const payload = {
+  user_id: null,
+  memo: '',
+  category_id: null,
+  amount: 0,
+}
+
 export const Month = (props: any) => {
   const expenseData = useSelector((state: any) => state.expense)
   const dispatch = useDispatch()
-
-  let subtitle: HTMLHeadingElement | null
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
   const [targetDate, setTargetDate] = useState<number|null>(null)
   const [isLoadedPost, setIsLoadedPost] = useState<boolean>(false)
   const [memo, setMemo] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
 
-  function afterOpenModal() {
-    if (subtitle) subtitle.style.color = '#f00'
-  }
-
   const closeModal = () => {
     setIsOpen(false)
   }
-  const { month, isLoaded, setIsLoaded } = props
+  const { month, isLoaded, setIsSaved, incomeList } = props
 
   const handleSave = async () => {
     await axios.post('http://127.0.0.1:8000/api/income', {
       user_id: 1,
-      memo,
+      memo: expenseData.memo,
       category_id: 1,
       amount: expenseData.amount,
-      date: '2022-03-11'
+      date: targetDate
     }).then(() => {
       setIsLoadedPost(true)
       setAmount(0)
@@ -54,12 +55,14 @@ export const Month = (props: any) => {
   }
 
   const handleChangeAmount = (e: any) => {
-    const payload = { amount: e.target.value }
-    setAmount(e.target.value)
+    payload.amount = e.target.value
     dispatch(setData(payload))
+    setAmount(e.target.value)
   }
 
   const handleChangeMemo = (e: any) => {
+    payload.memo = e.target.value
+    dispatch(setData(payload))
     setMemo(e.target.value)
   }
 
@@ -76,6 +79,7 @@ export const Month = (props: any) => {
                 setIsOpen={setIsOpen}
                 setTargetDate={setTargetDate}
                 setIsLoadedPost={setIsLoadedPost}
+                income={incomeList.find((value: any) => value.date === day.format('YYYY-MM-DD')) ?? null}
               />
             ))}
           </React.Fragment>
@@ -85,7 +89,6 @@ export const Month = (props: any) => {
         contentLabel="Example Modal"
         isOpen={modalIsOpen}
         style={customStyles}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
       >
         {!isLoadedPost &&

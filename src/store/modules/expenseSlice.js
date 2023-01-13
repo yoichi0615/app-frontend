@@ -10,8 +10,10 @@ export const expenseSlice = createSlice({
     date: ''
   },
   reducers: {
-    setData: (state, action) => {
-      state.amount = action.payload.amount
+    setData: (state, { payload, type }) => {
+      state.amount = payload.amount
+      state.memo = payload.memo
+      state.category_id = payload.category_id
     }
   }
 })
