@@ -1,7 +1,7 @@
 import React from 'react'
 import { isToday } from '../../utils/date'
 
-export const Day = (props: any) => {
+export const CalendarCell = (props: any) => {
   const getBackGroundClass = (day: number) => {
     let backGroundColor: string
     if (isToday(day)) {
@@ -11,7 +11,7 @@ export const Day = (props: any) => {
     }
     return backGroundColor
   }
-  const { day, rowIdx, setIsOpen, setTargetDate } = props
+  const { day, rowIdx, setIsOpen, setTargetDate, setIsLoadedPost } = props
   return (
     <div 
       className={
@@ -21,6 +21,7 @@ export const Day = (props: any) => {
       onClick={() => {
         setIsOpen(true)
         setTargetDate(day.format('YYYY/mm/DD'))
+        setIsLoadedPost(false)
       }}
     >
       <header className='flex flex-col items-center'>

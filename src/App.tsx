@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css';
-import { LikeButton } from './components/atoms/LikeButton';
 
 const App: React.FC = () => {
   const [num, setNum] = useState<number>(0)
@@ -18,7 +17,6 @@ const App: React.FC = () => {
     <>
       <div>APP</div>
       <div>{num}</div>
-      <LikeButton />
     </>
   )
 }
