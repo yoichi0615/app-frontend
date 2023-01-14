@@ -1,9 +1,7 @@
 import React from 'react'
 import { isToday } from '../../utils/date'
-import { useSelector } from 'react-redux'
 
 export const CalendarCell = (props: any) => {
-  const expenseData = useSelector((state: any) => state.expense)
   const getBackGroundClass = (day: number) => {
     let backGroundColor: string
     if (isToday(day)) {
@@ -13,7 +11,7 @@ export const CalendarCell = (props: any) => {
     }
     return backGroundColor
   }
-  const { day, rowIdx, setIsOpen, setTargetDate, setIsLoadedPost, income } = props
+  const { day, rowIdx, setIsOpen, setTargetDate, setIsLoadedPost, income, setError } = props
   return (
     <div 
       className={
@@ -24,6 +22,7 @@ export const CalendarCell = (props: any) => {
         setIsOpen(true)
         setTargetDate(day.format('YYYY/MM/DD'))
         setIsLoadedPost(false)
+        setError(false)
       }}
     >
       <header className='flex flex-col items-center'>

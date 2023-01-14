@@ -4,7 +4,8 @@ import Modal from 'react-modal'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setData } from '../../store/modules/expenseSlice'
-
+import { getExpenseData } from '../pages/Main'
+import { Selectbox } from '../atoms/Selectbox'
 
 const customStyles = {
   content: {
@@ -32,29 +33,54 @@ export const Month = (props: any) => {
   const [isLoadedPost, setIsLoadedPost] = useState<boolean>(false)
   const [memo, setMemo] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
+  const [isError, setError] = useState(false)
+  const [selectValue, setValue] = useState(null)
+
+  const options = [
+    {
+      label: 'カテゴリーA',
+      value:  '1'
+    },
+    {
+      label: 'カテゴリーB',
+      value:  '2'
+    },
+    {
+      label: 'カテゴリーC',
+      value:  '3'
+    },
+    {
+      label: 'カテゴリーD',
+      value:  '4'
+    }
+  ]
 
   const closeModal = () => {
     setIsOpen(false)
   }
-  const { month, isLoaded, setIsSaved, incomeList } = props
+  const { month, incomeList, setIncomeList } = props
 
   const handleSave = async () => {
     await axios.post('http://127.0.0.1:8000/api/income', {
       user_id: 1,
       memo: expenseData.memo,
-      category_id: 1,
+      category_id: selectValue,
       amount: expenseData.amount,
       date: targetDate
     }).then(() => {
-      setIsLoadedPost(true)
       setAmount(0)
       setMemo('')
+      getExpenseData().then((res) =>{
+        setIncomeList(res)
+        setIsLoadedPost(true)
+      })
     }).catch(() => {
-      return false
+      setError(true)
     })
   }
 
   const handleChangeAmount = (e: any) => {
+    console.log(e.target.value)
     payload.amount = e.target.value
     dispatch(setData(payload))
     setAmount(e.target.value)
@@ -77,9 +103,11 @@ export const Month = (props: any) => {
                 key={idx}
                 rowIdx={i}
                 setIsOpen={setIsOpen}
+                ariaHideApp={false}
                 setTargetDate={setTargetDate}
                 setIsLoadedPost={setIsLoadedPost}
                 income={incomeList.find((value: any) => value.date === day.format('YYYY-MM-DD')) ?? null}
+                setError={setError}
               />
             ))}
           </React.Fragment>
@@ -116,12 +144,7 @@ export const Month = (props: any) => {
                 </div>
                 <div className="flex py-2 mb-5">
                   <div className="mr-12 px-3 py-2">項目</div>
-                  {/* SelectBoxコンポーネント化 */}
-                  <select name="" id="" className="px-3 py-2 mb-3 bg-stone-200">
-                    <option value="">AAAA</option>
-                    <option value="">B</option>
-                    <option value="">C</option>
-                  </select>
+                  <Selectbox options={options} setValue={setValue} />
                 </div>
                 <div className="flex py-2 mb-5">
                   <div className="mr-12 px-3 py-2">メモ</div>
@@ -138,6 +161,9 @@ export const Month = (props: any) => {
               <div className="flex justify-center items-center">
                 <button className="bg-blue-400 hover:bg-blue-300 text-white rounded px-4 py-1" onClick={handleSave}>保存</button>
               </div>
+              {isError &&
+                <p className="font-bold text-red-400">登録に失敗しました</p>
+              }
             </div>
           </>
         }
