@@ -21,7 +21,7 @@ const customStyles = {
 const payload = {
   user_id: null,
   memo: '',
-  category_id: null,
+  category_id: 1,
   amount: 0,
 }
 
@@ -34,24 +34,32 @@ export const Month = (props: any) => {
   const [memo, setMemo] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
   const [isError, setError] = useState(false)
-  const [selectValue, setValue] = useState(null)
+  const [selectValue, setValue] = useState(1)
 
   const options = [
     {
-      label: 'カテゴリーA',
-      value:  '1'
+      label: '未分類',
+      value:  1
     },
     {
-      label: 'カテゴリーB',
-      value:  '2'
+      label: '食費',
+      value:  2
     },
     {
-      label: 'カテゴリーC',
-      value:  '3'
+      label: '娯楽',
+      value:  3
     },
     {
-      label: 'カテゴリーD',
-      value:  '4'
+      label: '交際費',
+      value:  4
+    },
+    {
+      label: '自己投資',
+      value:  5
+    },
+    {
+      label: '借金',
+      value: 6
     }
   ]
 
@@ -79,8 +87,15 @@ export const Month = (props: any) => {
     })
   }
 
+  const getMonthlyTotalExpense = () => {
+    const totalAmount = incomeList.reduce((sum: number, element: any) => {
+      return sum + Number(element.total_amount)
+    }, 0)
+
+    return totalAmount
+  }
+
   const handleChangeAmount = (e: any) => {
-    console.log(e.target.value)
     payload.amount = e.target.value
     dispatch(setData(payload))
     setAmount(e.target.value)
@@ -94,6 +109,29 @@ export const Month = (props: any) => {
 
   return (
     <>
+      <h2 className="font-bold">月間収支</h2>
+      <div className="flex justify-center mb-2">
+        <table>
+          <thead>
+            <tr>
+              <th>当月収入</th>
+              <th></th>
+              <th>当月支出</th>
+              <th></th>
+              <th>当月収支</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1900円</td>
+              <td>ー</td>
+              <td className="font-bold text-red-700">{getMonthlyTotalExpense()}円</td>
+              <td>＝</td>
+              <td className="text-red-400">{1900 - getMonthlyTotalExpense()}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div className="flex-1 grid grid-cols-7 grid-rows-5">
         {month.map((row:any, i:any) => (
           <React.Fragment key={i}>
@@ -103,7 +141,6 @@ export const Month = (props: any) => {
                 key={idx}
                 rowIdx={i}
                 setIsOpen={setIsOpen}
-                ariaHideApp={false}
                 setTargetDate={setTargetDate}
                 setIsLoadedPost={setIsLoadedPost}
                 income={incomeList.find((value: any) => value.date === day.format('YYYY-MM-DD')) ?? null}
@@ -118,6 +155,7 @@ export const Month = (props: any) => {
         isOpen={modalIsOpen}
         style={customStyles}
         onRequestClose={closeModal}
+        ariaHideApp={false}
       >
         {!isLoadedPost &&
           <>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { isToday } from '../../utils/date'
+import { isToday, isThisMonth } from '../../utils/date'
 
 export const CalendarCell = (props: any) => {
   const getBackGroundClass = (day: number) => {
@@ -12,11 +12,18 @@ export const CalendarCell = (props: any) => {
     return backGroundColor
   }
   const { day, rowIdx, setIsOpen, setTargetDate, setIsLoadedPost, income, setError } = props
+
+  const getDisabledClass = (day: number) => {
+    const disabledClass = (isThisMonth(day)) ? '' : 'pointer-events-none bg-gray-500'
+    return disabledClass
+  }
+
   return (
     <div 
       className={
         `border border-gray-200 flex flex-col hover:bg-gray-200 text-black 
-        ${getBackGroundClass(day.$D)}`
+        ${getBackGroundClass(day.$D)}
+        ${getDisabledClass(day)}`
       } 
       onClick={() => {
         setIsOpen(true)

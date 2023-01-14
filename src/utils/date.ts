@@ -16,3 +16,7 @@ export const getMonth = (month: number = dayjs().month()) => {
 export const isToday = (day: number) => {
   return day === dayjs().date()
 }
+
+export const isThisMonth = (date: number) => {
+  return dayjs().format('MM') === dayjs(date).format('MM')
+}
