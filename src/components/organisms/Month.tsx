@@ -123,11 +123,11 @@ export const Month = (props: any) => {
           </thead>
           <tbody>
             <tr>
-              <td>1900円</td>
+              <td>0円</td>
               <td>ー</td>
               <td className="font-bold text-red-700">{getMonthlyTotalExpense()}円</td>
               <td>＝</td>
-              <td className="text-red-400">{1900 - getMonthlyTotalExpense()}</td>
+              <td className="text-red-400">{0 - getMonthlyTotalExpense()}</td>
             </tr>
           </tbody>
         </table>
