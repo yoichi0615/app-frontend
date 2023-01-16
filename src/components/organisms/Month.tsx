@@ -110,29 +110,29 @@ export const Month = (props: any) => {
   return (
     <>
       <h2 className="font-bold">月間収支</h2>
-      <div className="flex justify-center mb-2">
+      <div className="flex mb-2 justify-end mr-5">
         <table>
           <thead>
             <tr>
-              <th>当月収入</th>
-              <th></th>
-              <th>当月支出</th>
-              <th></th>
-              <th>当月収支</th>
+              <th className="px-3">当月収入</th>
+              <th className="px-3"></th>
+              <th className="px-3">当月支出</th>
+              <th className="px-3"></th>
+              <th className="px-3">当月収支</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>0円</td>
-              <td>ー</td>
-              <td className="font-bold text-red-700">{getMonthlyTotalExpense()}円</td>
-              <td>＝</td>
-              <td className="text-red-400">{0 - getMonthlyTotalExpense()}</td>
+              <td className="px-3">0円</td>
+              <td className="px-3">ー</td>
+              <td className="font-bold text-red-700 px-3">{getMonthlyTotalExpense()}円</td>
+              <td className="px-3">＝</td>
+              <td className="text-red-400 px-3">{0 - getMonthlyTotalExpense()}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div className="flex-1 grid grid-cols-7 grid-rows-5">
+      <div className="flex-1 grid grid-cols-7 grid-rows-5 mt-10">
         {month.map((row:any, i:any) => (
           <React.Fragment key={i}>
             {row.map((day: any, idx: any) => (
