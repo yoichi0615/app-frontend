@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setData } from '../../store/modules/expenseSlice'
 import { getExpenseData } from '../pages/Main'
 import { Selectbox } from '../atoms/Selectbox'
+import { options } from '../pages/Main'
 
 const customStyles = {
   content: {
@@ -36,32 +37,6 @@ export const Month = (props: any) => {
   const [isError, setError] = useState(false)
   const [selectValue, setValue] = useState(1)
 
-  const options = [
-    {
-      label: '未分類',
-      value:  1
-    },
-    {
-      label: '食費',
-      value:  2
-    },
-    {
-      label: '娯楽',
-      value:  3
-    },
-    {
-      label: '交際費',
-      value:  4
-    },
-    {
-      label: '自己投資',
-      value:  5
-    },
-    {
-      label: '借金',
-      value: 6
-    }
-  ]
 
   const closeModal = () => {
     setIsOpen(false)
@@ -186,14 +161,13 @@ export const Month = (props: any) => {
                 </div>
                 <div className="flex py-2 mb-5">
                   <div className="mr-12 px-3 py-2">メモ</div>
-                  <textarea
-                    cols="30"
-                    rows="10"
+                  <input
+                    // cols="30"
+                    // rows="10"
                     className="bg-stone-50"
                     value={memo}
                     onChange={handleChangeMemo}
-                  >
-                  </textarea>
+                  />
                 </div>
               </div>
               <div className="flex justify-center items-center">
