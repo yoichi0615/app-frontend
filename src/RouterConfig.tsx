@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SampleHome } from './components/SampleHome'
 import { Main } from './components/pages/Main'
-import { SamplePage2 } from './components/SamplePage2'
 import { Chart } from './components/pages/Chart'
 import { NotFound } from './components/pages/NotFound'
 

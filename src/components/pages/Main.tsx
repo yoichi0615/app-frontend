@@ -6,6 +6,7 @@ import { getMonth } from '../../utils/date'
 import { store } from '../../store'
 import { Provider } from 'react-redux'
 import axios from 'axios'
+import { Header } from '../molecules/Header'
 
 export const options = [
   {
@@ -52,11 +53,14 @@ export const Main: React.FC = () => {
 
   return (
     <div className="w-[1200px] m-auto">
-      <h3>メインページ</h3>
-      <Provider store={store}>
-        <Month month={currentMonth} setIsSave={setIsSaved} incomeList={incomeList} setIncomeList={setIncomeList} />
-        <Detail />
-      </Provider>
+      <Header />
+      <div>
+        <h3>メインページ</h3>
+        <Provider store={store}>
+          <Month month={currentMonth} setIsSave={setIsSaved} incomeList={incomeList} setIncomeList={setIncomeList} />
+          <Detail />
+        </Provider>
+      </div>
     </div>
   )
 }
