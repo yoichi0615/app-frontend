@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Selectbox } from '../atoms/Selectbox'
 import { options } from '../pages/Main'
 
-export const Detail = (props: any) => {
+export const Detail = () => {
   const [selectValue, setValue] = useState(1)
 
   return (

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useLocation, Link } from 'react-router-dom';
+import React from 'react'
+import { useLocation, Link } from 'react-router-dom'
 
 export const Header = () => {
   const location = useLocation()
@@ -12,13 +12,13 @@ export const Header = () => {
             <Link to="/">ホーム</Link>
           </li>
           <li className={`p-3 mr-2 ${location.pathname === '/calendar' ? 'text-gray-400' : ''}`}>
-          <Link to="/calendar">家計</Link>
+            <Link to="/calendar">家計</Link>
           </li>
           <li className={`p-3 mr-2 ${location.pathname === '/chart' ? 'text-gray-400' : ''}`}>
             <Link to="/chart">グラフ</Link>
           </li>
           <li className={`p-3 mr-2 ${location.pathname === '/setting' ? 'text-gray-400' : ''}`}>
-          <Link to="/setting">設定</Link>
+            <Link to="/setting">設定</Link>
           </li>
         </ul>
       </div>
